@@ -13,9 +13,12 @@ const News = ({ country = 'in', pageSize = 8, category = 'general', setProgress 
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
+    
+    const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:5000";
+
     const updateNews = async () => {
         setProgress(10);
-        const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2d03c55cc3b249f788b920b4249cf455&page=${page}&pageSize=${pageSize}`; 
+        const url = `${API_BASE}/api/news?country=${country}&category=${category}&page=${page}&pageSize=${pageSize}`; 
         setLoading(true);
         let data = await fetch(url);
         setProgress(30);
@@ -30,11 +33,11 @@ const News = ({ country = 'in', pageSize = 8, category = 'general', setProgress 
     useEffect(() => {
         document.title = `${capitalizeFirstLetter(category)} - NewsApp`;
         updateNews(); 
-        // eslint-disable-next-line
+        
      }, [category]);  
 
     const fetchMoreData = async () => {
-        const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2d03c55cc3b249f788b920b4249cf455&page=${page+1}&pageSize=${pageSize}`;
+        const url = `${API_BASE}/api/news?country=${country}&category=${category}&page=${page+1}&pageSize=${pageSize}`;
         setPage(page + 1);
         let data = await fetch(url);
         let parsedData = await data.json();
@@ -65,6 +68,5 @@ const News = ({ country = 'in', pageSize = 8, category = 'general', setProgress 
         </>
     );
 };
-
 
 export default News;
