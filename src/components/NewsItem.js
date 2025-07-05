@@ -45,7 +45,7 @@ export default function NewsItem(props) {
         <div className="card h-100 shadow-sm border-0">
           <div className="card-img-container" style={{ height: '200px', overflow: 'hidden' }}>
             <img 
-              src={props.url || 'https://via.placeholder.com/600x400?text=No+Image'} 
+              src={props.imageUrl || 'https://via.placeholder.com/600x400?text=No+Image'}
               className="card-img-top h-100 object-fit-cover"
               alt={props.title || "News image"} 
               onError={(e) => {
